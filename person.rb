@@ -1,9 +1,10 @@
 require './nameable'
 require './trimmer_decorator'
 require './capitalize_decorator'
+require './rental'
 
 class Person < Nameable
-  attr_accessor :name, :age, :id
+  attr_accessor :name, :age, :id, :rental_data
 
   def initialize(age, id, name = 'unknown', parent_permission: true)
     super()
@@ -11,6 +12,7 @@ class Person < Nameable
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rental_data = []
   end
 
   def of_age?
