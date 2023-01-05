@@ -56,8 +56,8 @@ def add_book(books)
   puts 'Book added successfully'
 end
 
-def add_rental(books, people, rental_details)
-  puts 'Please select a book from the list by number'
+def add_rental(books, people, rental_data)
+  puts 'Please select abook from the list by number'
   books.map.with_index { |book, index| puts "#{index} Title: #{book.title}',Auther:#{book.author}" }
   selected_book = gets.chomp.to_i
   puts "Choose a person from the list:(
@@ -70,11 +70,11 @@ def add_rental(books, people, rental_details)
 
   print 'date?'
   selecteted_date = gets.chomp
-  rental_details.push(Rental.new(selecteted_date, people[selected_person], books[selected_book]))
-  puts 'rental_details updated'
+  rental_data.push(Rental.new(selecteted_date, people[selected_person], books[selected_book]))
+  puts 'rental_data updated'
 end
 
-def show_rental_details(rentals)
+def show_rental_data(rentals)
   print 'Person ID'
   selected_person_id = gets.chomp.to_i
   rentals.each do |rental|

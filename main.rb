@@ -1,10 +1,10 @@
 require './app'
 def main
   books = []
-  rental_details = []
+  rental_data = []
   people = []
 
-  options(books, people, rental_details)
+  options(books, people, rental_data)
 end
 
 def display_all
@@ -19,7 +19,7 @@ def display_all
            7: Exit"
 end
 
-def options(books, people, rental_details)
+def options(books, people, rental_data)
   loop do
     display_all
     option = gets.chomp.to_i
@@ -31,11 +31,11 @@ def options(books, people, rental_details)
     when 3
       add_people(people)
     when 4
-      add_rental(books, people, rental_details)
+      add_rental(books, people, rental_data)
     when 5
       add_book(books)
     when 6
-      show_rental_details(rental_details)
+      show_rental_data(rental_data)
     else
       break
     end
