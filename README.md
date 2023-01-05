@@ -53,7 +53,14 @@ Imagine that you are the librarian of OOP University, and you need a tool to rec
 
 ### Key Features <a name="key-features"></a>
 
-> Coming Soon
+> This library app has following objects.
+
+- **[Person]**
+- **[Student]**
+- **[Teacher]**
+- **[Book]**
+- **[Classroom]**
+- **[Nameable]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,7 +135,10 @@ To run tests, run the following command:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-> To be added later
+- [ ] **[UNIT TESTS]**
+- [ ] **[PRESERVE DATA]**
+- [ ] **[REFACTOR CODE]**
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
