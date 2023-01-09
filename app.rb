@@ -4,7 +4,6 @@ require './book'
 require './teacher'
 
 class App
-
   def show_books(books)
     if books.empty?
       puts 'No books found in library'
