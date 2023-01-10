@@ -27,9 +27,9 @@ class App
   def add_people(people)
     print('press 1 to add a student or press 2 to add a teacher')
     person_to_add = gets.chomp.to_i
-    print 'Age? '
+    puts 'Age: '
     age = gets.chomp.to_i
-    print 'Name? '
+    puts 'Name: '
     name = gets.chomp
 
     case person_to_add
@@ -43,6 +43,8 @@ class App
       print 'Specialisation?'
       specialisation = gets.chomp
       people.push(Teacher.new(specialisation, age, name))
+      #teach_data = get_data('people')
+      #update_data = ("people", teach_data)
     end
     puts 'Person added successfully'
   end
