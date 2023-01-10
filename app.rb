@@ -34,13 +34,13 @@ class App
 
     case person_to_add
     when 1
-      print 'Do you have parent Permission? [Y/N]:'
+      puts 'Do you have parent Permission? [Y/N]: '
       user_response = gets.chomp.capitalize
       user_permission = true if user_response == 'Y'
       user_permission = false if user_response == 'N'
       people.push(Student.new(nil, age, name, parent_permission: user_permission))
     when 2
-      print 'Specialisation?'
+      puts 'Specialisation: '
       specialisation = gets.chomp
       people.push(Teacher.new(specialisation, age, name))
       #teach_data = get_data('people')
