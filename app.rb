@@ -82,20 +82,18 @@ class App
 
   def add_rental
     puts 'Please select abook from the list by number'
-    books.map.with_index { |book, index| puts "#{index} Title: #{book.title}',Auther:#{book.author}" }
+    book.map.with_index { |item, index| puts "#{index} Title: #{item.title}',Auther:#{item.author}" }
     selected_book = gets.chomp.to_i
     puts "Choose a person from the list:(
       DON'T CHOOSE ID PLEASE)"
-    people.map.with_index do |person, index|
-      puts "#{index}, Name: #{person.name} Age: #{person.age},
-          ID:#{person.id}"
+    person.map.with_index do |item, index|
+      puts "#{index}, Name: #{item.name} Age: #{item.age},
+          ID:#{item.id}"
     end
     selected_person = gets.chomp.to_i
 
     print 'date?'
     selecteted_date = gets.chomp
-    rental_info = Rental.new(selecteted_date, people[selected_person], books[selected_book])
-    puts rental_info
     puts 'rental_data updated'
     rental_data_hash = { date: selecteted_date, book_index: selected_book, person_index: selected_person }
     rental_data = get_data('rental')
@@ -103,15 +101,15 @@ class App
     update_data('rental', rental_data)
   end
 
-  def show_rental_data(rentals)
+  def show_rental
     print 'Person ID'
     selected_person_id = gets.chomp.to_i
-    rentals.each do |rental|
-      next unless rental.person.id == selected_person_id
+    @rental.each do |item|
+      next unless item.person.id.to_i == selected_person_id
 
-      puts rental.book.title
-      puts rental.person.name
-      puts rental.date
+      puts item.book.title
+      puts item.person.name
+      puts item.date
     end
   end
 
@@ -127,7 +125,7 @@ class App
             7: Exit"
   end
 
-  def options(books, people, rental_data)
+  def options
     loop do
       display_all
       option = gets.chomp.to_i
@@ -141,11 +139,11 @@ class App
       when 3
         add_people
       when 4
-        add_rental(books, people, rental_data)
+        add_rental
       when 5
         add_book
       when 6
-        show_rental_data(rental_data)
+        show_rental
       else
         break
       end

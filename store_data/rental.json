@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "date" : "2020/12/12",
+    "book_index" : 0,
+    "person_index" : 1
+  },
+  {
+    "date" : "2020/12/12",
+    "book_index" : 0,
+    "person_index" : 0
+  },
+  {
+    "date" : "2020/12/12",
+    "book_index" : 0,
+    "person_index" : 1
+  },
+  {
+    "date" : "2020/12/12",
+    "book_index" : 0,
+    "person_index" : 1
+  }
+]
