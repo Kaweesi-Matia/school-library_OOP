@@ -2,6 +2,7 @@ require './rental'
 require './student'
 require './book'
 require './teacher'
+require './save_data'
 
 class App
   def show_books(books)
@@ -38,13 +39,19 @@ class App
       user_response = gets.chomp.capitalize
       user_permission = true if user_response == 'Y'
       user_permission = false if user_response == 'N'
-      people.push(Student.new(nil, age, name, parent_permission: user_permission))
+      people = (Student.new(nil, age, name, parent_permission: user_permission))
+      student_data_hash = { id: people.id, name: people.name, age: people.age, class: 'student' }
+      student_data = get_data('people')
+      student_data.push(student_data_hash)
+      update_data = ('people', student_data)
     when 2
       puts 'Specialisation: '
       specialisation = gets.chomp
-      people.push(Teacher.new(specialisation, age, name))
-      #teach_data = get_data('people')
-      #update_data = ("people", teach_data)
+      people = (Teacher.new(specialisation, age, name))
+      teacher_data_hash = { id: people.id, name: people.name, age: people.age, , class: 'teacher'}
+      teach_data = get_data('people')
+      teach_data.push(teacher_data_hash)
+      update_data = ("people", teach_data)
     end
     puts 'Person added successfully'
   end
