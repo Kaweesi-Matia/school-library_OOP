@@ -5,27 +5,37 @@ require './teacher'
 require './save_data'
 
 class App
-  def show_books(books)
-    if books.empty?
+  attr_reader :book, :person, :rental
+
+  include DataSaver
+
+  def initialize
+    @book = show_books
+    @person = show_people
+    @rental = show_rentals(@book, @person)
+  end
+
+  def list_books
+    if @book.empty?
       puts 'No books found in library'
     else
-      books.each do |book|
-        puts "title: #{book.title}, Auther: #{book.author}"
+      book.each do |item|
+        puts "title: #{item.title}, Author: #{item.author}"
       end
     end
   end
 
-  def show_people(people)
-    if people.empty?
+  def list_people
+    if @person.empty?
       puts 'No person found'
     else
-      people.each do |person|
-        puts "Name: #{person.name}, Age: #{person.age},ID: #{person.id}"
+      person.each do |item|
+        puts "Name: #{item.name}, Age: #{item.age},ID: #{item.id}"
       end
     end
   end
 
-  def add_people(people)
+  def add_people
     print('press 1 to add a student or press 2 to add a teacher')
     person_to_add = gets.chomp.to_i
     puts 'Age: '
@@ -39,34 +49,38 @@ class App
       user_response = gets.chomp.capitalize
       user_permission = true if user_response == 'Y'
       user_permission = false if user_response == 'N'
-      people = (Student.new(nil, age, name, parent_permission: user_permission))
+      people = Student.new(nil, age, name, parent_permission: user_permission)
       student_data_hash = { id: people.id, name: people.name, age: people.age, class: 'student' }
       student_data = get_data('people')
       student_data.push(student_data_hash)
-      update_data = ('people', student_data)
+      update_data('people', student_data)
     when 2
       puts 'Specialisation: '
       specialisation = gets.chomp
-      people = (Teacher.new(specialisation, age, name))
-      teacher_data_hash = { id: people.id, name: people.name, age: people.age, , class: 'teacher'}
+      people = Teacher.new(specialisation, age, name)
+      teacher_data_hash = { id: people.id, name: people.name, age: people.age, class: 'teacher' }
       teach_data = get_data('people')
       teach_data.push(teacher_data_hash)
-      update_data = ("people", teach_data)
+      update_data('people', teach_data)
     end
     puts 'Person added successfully'
   end
 
-  def add_book(books)
+  def add_book
     puts 'Please Add a book'
     print 'Title :'
     title = gets.chomp.capitalize
     print 'Author:'
     author = gets.chomp.capitalize
-    books.push(Book.new(title, author))
+    book_info = Book.new(title, author)
+    book_data_hash = { title: book_info.title, author: book_info.author }
+    book_data = get_data('books')
+    book_data.push(book_data_hash)
+    update_data('books', book_data)
     puts 'Book added successfully'
   end
 
-  def add_rental(books, people, rental_data)
+  def add_rental
     puts 'Please select abook from the list by number'
     books.map.with_index { |book, index| puts "#{index} Title: #{book.title}',Auther:#{book.author}" }
     selected_book = gets.chomp.to_i
@@ -80,8 +94,13 @@ class App
 
     print 'date?'
     selecteted_date = gets.chomp
-    rental_data.push(Rental.new(selecteted_date, people[selected_person], books[selected_book]))
+    rental_info = Rental.new(selecteted_date, people[selected_person], books[selected_book])
+    puts rental_info
     puts 'rental_data updated'
+    rental_data_hash = { date: selecteted_date, book_index: selected_book, person_index: selected_person }
+    rental_data = get_data('rental')
+    rental_data.push(rental_data_hash)
+    update_data('rental', rental_data)
   end
 
   def show_rental_data(rentals)
@@ -114,15 +133,17 @@ class App
       option = gets.chomp.to_i
       case option
       when 1
-        show_books(books)
+        list_books
+        show_books
       when 2
-        show_people(people)
+        list_people
+        show_people
       when 3
-        add_people(people)
+        add_people
       when 4
         add_rental(books, people, rental_data)
       when 5
-        add_book(books)
+        add_book
       when 6
         show_rental_data(rental_data)
       else
